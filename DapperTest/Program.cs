@@ -21,29 +21,38 @@ namespace DapperTest
 
             tasks.AddRange(new List<Task> {
                 InsertAsync(),
-                ResetAsync(),
+                InsertAsync2(),
             });
 
             Task.WhenAll(tasks);
             //await ResetAsync();
         }
 
-        public static Task InsertAsync()
+        public static async Task InsertAsync()
         {
             //var sql = @"INSERT INTO Test VALUES (1,'John'),(2,'James')";
-            var sql = "some invalid sql";
+            var sql = "insert into Test (3, 'Andrew')";
 
             using (var connection = new SqlConnection(CONNSTRING))
-                return connection.ExecuteAsync(sql);
+                await connection.ExecuteAsync(sql);
         }
 
-        public static Task ResetAsync()
+        public static async Task InsertAsync2()
+        {
+            //var sql = @"INSERT INTO Test VALUES (1,'John'),(2,'James')";
+            var sql = "insert into Test (4, 'George')";
+
+            using (var connection = new SqlConnection(CONNSTRING))
+                await connection.ExecuteAsync(sql);
+        }
+
+        public static async Task ResetAsync()
         {
             //var sql = @"DELETE FROM Test";
             var sql = "some invalid sql";
 
             using (var connection = new SqlConnection(CONNSTRING))
-                return connection.ExecuteAsync(sql);
+                await connection.ExecuteAsync(sql);
         }
 
         public static void Reset()
